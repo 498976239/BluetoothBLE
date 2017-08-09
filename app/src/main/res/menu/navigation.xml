@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/control">
+        <item
+            android:id="@+id/open_bluetooth"
+            android:title="打开蓝牙"
+            android:icon="@mipmap/ic_perm_group_bluetooth"/>
+        <item
+            android:id="@+id/secure_connect_scan"
+            android:title="扫描设备"
+            android:icon="@mipmap/ic_perm_group_phone_calls"/>
+        <item
+            android:id="@+id/close_blue_service"
+            android:title="断开连接"
+            android:icon="@mipmap/ic_perm_group_screenlock123"/>
+    </group>
+    <group android:id="@+id/operation"
+        android:checkableBehavior="single">
+        <item android:id="@+id/request_data"
+            android:title="同步时间"
+            android:icon="@mipmap/ic_perm_group_sync_settings"/>
+        <item
+            android:id="@+id/history"
+            android:title="数据查询"
+            android:icon="@mipmap/ic_menu_search_holo_light"/>
+    </group>
+    <item android:id="@+id/close_software"
+        android:title="退出软件"
+        android:icon="@mipmap/ic_perm_group_personal_info"/>
+</menu>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.ss.www.bluetoothble.LineActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/lineToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        app:theme = "@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    </android.support.v7.widget.Toolbar>
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="55dp"
+            android:id="@+id/rg_line">
+        <RadioButton
+            android:id="@+id/line_choose_data1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数据一"
+            android:layout_marginLeft="10dp" />
+        <RadioButton
+            android:id="@+id/line_choose_data2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数据二"
+            android:layout_marginLeft="10dp" />
+            <RadioButton
+                android:id="@+id/line_choose_data3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="数据三"
+                android:layout_marginLeft="10dp" />
+        </RadioGroup>
+    </LinearLayout>
+
+
+</LinearLayout>
