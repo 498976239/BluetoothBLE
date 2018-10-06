@@ -24,9 +24,14 @@ public class MyBehavior extends CoordinatorLayout.Behavior {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
         //我们是垂直方向的滚动，我们只要监听dy
         if(dy < 0){//往下拉
-            ViewCompat.animate(child).scaleX(1).scaleY(1).start();
+            ViewCompat.animate(child).translationX(0).alpha(1).setDuration(1000).start();
+            //child.animate().translationX(0).start();
+
+
         }else {
-            ViewCompat.animate(child).scaleX(0).scaleY(0).start();
+            ViewCompat.animate(child).translationX(-1200).alpha(0).setDuration(1000).start();
+            //child.animate().translationX(-1200).start();
+
         }
     }
 }

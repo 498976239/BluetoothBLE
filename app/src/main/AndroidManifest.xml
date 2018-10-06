@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    //Android6.0以上需要加入下面两个权限
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 这是写入sd卡的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -17,13 +22,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:configChanges="screenSize|keyboardHidden|orientation">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:configChanges="screenSize|keyboardHidden|orientation"></activity>
         <activity
             android:name=".DeviceListActivity"
             android:configChanges="screenSize|keyboardHidden|orientation" />
@@ -33,8 +32,25 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".QueryActivity" />
-        <activity android:name=".LineActivity"></activity>
+        <activity
+            android:name=".QueryActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".LineActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation" />
+        <activity
+            android:name=".Main2Activity"
+            android:configChanges="screenSize|keyboardHidden|orientation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TestActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

@@ -11,12 +11,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,6 +35,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,9 +56,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
-
+/*已经被我弃用了这个activity*/
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     public static final int RECEIVE_DATA = 4;
+    public static final int PASS_INFORMATION = 5;
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_ENABLE_BT = 3;
     private boolean connect_flag ;
@@ -58,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int count_re_ask;//当校验未成功，自动请求次数
     private boolean count_re_ask_flag;//当校验未成功，自动请求次数
     private BluetoothAdapter mBluetoothAdapter;
+    private int mCurrentAPIVersion;
+    private LocationManager locationManager;
     private DrawerLayout mDrawer;
     private ProgressBar mProgressBar;
     private NavigationView mNavigationView;
@@ -75,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String mDeviceName;
     private String mDeviceAddress;
     private int count;
+    private boolean connecting_flag;
+    private int connecting_time;
     private int time_count;
     private boolean flag;
     private int c;
@@ -90,7 +103,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                receiveFinish();//当大于200ms时表示没有数据发过来了，将数据进行处理
                 time_count = 0;
             }
+            if(connecting_flag == true){
+                connecting_time++ ;//正在连接的计时
+            }
+            if(connecting_time > 15000){
+                connecting_flag = false;
+                LogUtil.i("main--connecting_flag3",connecting_flag+"");
+                mBluetoothLeService.disconnect();
+                connecting_time = 0;
+                Message message = Message.obtain();
+                message.what = PASS_INFORMATION;
+                mHandler.sendMessage(message);
+
+            }
         }
+
     };
     /*
     * 通过handler接收传过来的数据*/
@@ -124,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             LogUtil.i("main--result",result[j]+"");
                         }
                         if(!equals){
-                            byteToFloat2(result);
+                           // byteToFloat2(result);
                         }else {
                             Toast.makeText(MainActivity.this,"数据相同,请更新后采集",Toast.LENGTH_SHORT).show();
                         }
@@ -147,6 +174,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     }
                    LogUtil.i("main---data",data.length+"");
+                    break;
+                case PASS_INFORMATION:
+                    setMessage("连接未成功，请重试");
                     break;
             }
         }
@@ -185,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtil.i("main---","onCreate（）");
         setContentView(R.layout.activity_main);
         //获取本地蓝牙设备
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -192,6 +223,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mBeanList = new ArrayList<>();//用来存放要存储的Bean对象
         mCommUtils = new CommUtils(this);//操作数据库的工具类
         init();
+        mCurrentAPIVersion = Build.VERSION.SDK_INT;
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         setSupportActionBar(mToolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer,mToolbar, 0, 0);//显示左侧图标
         mDrawer.addDrawerListener(toggle);
@@ -200,12 +233,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(mBluetoothLeService == null){
             mBluetoothLeService = new BluetoothLeService();
         }
-        mToolbar.setSubtitle("没有连接设备");
+        if(mBluetoothLeService.getState() == 0){
+            mToolbar.setSubtitle("没有连接设备");
+        }
         mTimer = new Timer();
         mTimer.schedule(mTimerTask,1,1);
         intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECTED);
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_DISCONNECTED);
+        intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECTING);
+        intentFilter.addAction(BluetoothLeService.ACTION_GATT_DISCONNECTING);
+        intentFilter.addAction(BluetoothLeService.ACTION_GATT_SERVICES_UNDISCOVERED);
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED);
         intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -246,10 +284,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
+        LogUtil.i("main---","执行了onResume（）");
+        if (mBluetoothLeService == null){
+            mBluetoothLeService = new BluetoothLeService();
+        }
         registerReceiver(mBroadcastReceiver, intentFilter);
         if(mBluetoothLeService != null && mBluetoothAdapter.isEnabled()){
             if(mDeviceAddress != null)
                 mBluetoothLeService.connect(mDeviceAddress);
+        }
+
+        if(mBluetoothLeService != null){
+            int a = mBluetoothLeService.getState();
+            if(a ==0){
+                setMessage("没有连接设备");
+            }
+            if(a ==1){
+                setMessage("正在连接设备");
+            }
         }
     }
 
@@ -262,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LogUtil.i("main","调用了onDestroy()");
         unbindService(mServiceConnection);
         unregisterReceiver(mBroadcastReceiver);//一般解除广播是在 onPause()里的，但是为了防止黑屏就收不到广播，所以一到这里来了
         mBluetoothLeService = null;
@@ -343,10 +396,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                     setMessage("连接成功");
                     connect_flag = true;
+                    connecting_flag = false;//用来断开“正在连接”延时
+                    Log.i("main--14","------");
+                LogUtil.i("main--connecting_flag2",connecting_flag+"");
             }
             if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-                    setMessage("连接断开");
-                    connect_flag = false;
+                    /*if (mDeviceAddress != null){
+                        connect_flag = false;
+                        mDeviceAddress = null;//防止自动去连接
+                    }*/
+                       // mBluetoothLeService.disconnect();
+                        setMessage("连接断开");
+                        connect_flag = false;
+                        connecting_flag = false;//用来断开“正在连接”延时
+                         Log.i("main--11","------");
+
+            }
+            if(BluetoothLeService.ACTION_GATT_CONNECTING.equals(action)){
+                setMessage("正在连接...");
+
+            }
+            if(BluetoothLeService.ACTION_GATT_DISCONNECTING.equals(action)){
+                setMessage("正在断开...");
+            }
+            if(BluetoothLeService.ACTION_GATT_SERVICES_UNDISCOVERED.equals(action)){
+                setMessage("服务未找到，请重试");
             }
             if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 LogUtil.i("MainActivity----","---------------------------------");
@@ -372,9 +446,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 time_count = 0;
                 byte[] result = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
                 mList.add(result);
-              //  Log.i("MainActivity-mList---",mList.size()+"");
-               // Log.i("MainActivity-flag---",flag+"");
-              //  Log.i("MainActivity-c---",c+"");
+                //Log.i("MainActivity-mList---",mList.size()+"");
+                //Log.i("MainActivity-flag---",flag+"");
+                //Log.i("MainActivity-c---",c+"");
                 count = count +result.length;
             }
         }
@@ -444,6 +518,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case REQUEST_CONNECT_DEVICE_SECURE:
                 if (resultCode == Activity.RESULT_OK) {
                     //启动服务并绑定
+                    setMessage("正在连接...");
+                    connecting_flag = true;
+                    LogUtil.i("main--connecting_flag",connecting_flag+"");
                     Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
                     bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                     if(mBluetoothLeService == null){
@@ -459,6 +536,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDeviceAddress = intent.getExtras().getString(DeviceListActivity.EXTRAS_DEVICE_ADDRESS);
         //连接蓝牙
         mBluetoothLeService.connect(mDeviceAddress);
+        Log.i("main-13",mDeviceAddress);
     }
 
 
@@ -481,16 +559,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
             case R.id.secure_connect_scan:
-                if(mBluetoothAdapter.isEnabled()){
-                    if(mBluetoothLeService.getState() == BluetoothLeService.STATE_CONNECTED){
-                        Toast.makeText(MainActivity.this,"请先断开已有连接",Toast.LENGTH_SHORT).show();
+                if (Build.VERSION.SDK_INT >= 25){
+                    if(!locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)){
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                        dialog.setMessage("打开GPS后，您才可以扫描并连接蓝牙设备");
+                        dialog.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        // 转到手机设置界面，用户设置GPS
+                                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                        startActivityForResult(intent, 0); // 设置完成后返回到原来的界面
+                                    }
+                                });
+                        dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                arg0.dismiss();
+                            }
+                        } );
+                        dialog.show();
                     }else {
-                        Intent serverIntent = new Intent(MainActivity.this, DeviceListActivity.class);
-                        startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+                        if(mBluetoothAdapter.isEnabled()){
+                            if(mBluetoothLeService.getState() == BluetoothLeService.STATE_CONNECTED){
+                                Toast.makeText(MainActivity.this,"请先断开已有连接",Toast.LENGTH_SHORT).show();
+                            }else {
+                                Intent serverIntent = new Intent(MainActivity.this, DeviceListActivity.class);
+                                startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+                            }
+                        }else {
+                            Toast.makeText(MainActivity.this,"蓝牙没有开启",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }else {
-                    Toast.makeText(MainActivity.this,"蓝牙没有开启",Toast.LENGTH_SHORT).show();
+                    if(mBluetoothAdapter.isEnabled()){
+                        if(mBluetoothLeService.getState() == BluetoothLeService.STATE_CONNECTED){
+                            Toast.makeText(MainActivity.this,"请先断开已有连接",Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent serverIntent = new Intent(MainActivity.this, DeviceListActivity.class);
+                            startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+                        }
+                    }else {
+                        Toast.makeText(MainActivity.this,"蓝牙没有开启",Toast.LENGTH_SHORT).show();
+                    }
                 }
+
                 break;
             case R.id.close_blue_service:
                 if(mBluetoothAdapter.isEnabled()){
@@ -505,6 +617,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 mBluetoothLeService.disconnect();
+                                connecting_flag = false;//用来断开“正在连接”延时
+                                mDeviceAddress = null;
                             }
                         });
                         close.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -528,6 +642,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     mBluetoothAdapter.disable();
+                   // if (locationManager != null){
+                       //Toast.makeText(MainActivity.this,"我走了",Toast.LENGTH_SHORT).show();
+                        //locationManager.clearTestProviderLocation(android.location.LocationManager.GPS_PROVIDER);
+                   // Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, android.provider.Settings.Secure.LOCATION_MODE_OFF);
+                    // locationManager = null;
+                   // }
                     MainActivity.this.finish();
                 }
             });
@@ -559,7 +679,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     child = new byte[4];
                     System.arraycopy(b,c,child,0,4);
                     tem = Float.intBitsToFloat(bytesToInt(child));//将小的byte[]转换成float
-                    tem=(float)(Math.round(tem*100))/100;//四舍五入
+                    if(tem > 600f){
+                        tem=(float)(Math.round(tem*100))/100;//四舍五入
+                    }else{
+                        tem=(float)(Math.round(tem*100000))/100000;//四舍五入
+                    }
                     if(a<108){
                         mListTextView.get(a).setVisibility(View.VISIBLE);//让有数据的TextView显示
                         mListTextView.get(a).setText(tem+"");//以字符串的形式显示在TextView
@@ -612,9 +736,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
            // Log.i("MainActivity-result---",theLastResult.length+"");
             //Log.i("MainActivity-finsh---",time_count+"");
             //Log.i("MainActivity-count---",count+"");
-            //Log.i("MainActivity-mList---",mList.size()+"");
+            Log.i("MainActivity-mList---",mList.size()+"");
             //将得到的byte[]通过Message传出去
             Message message = mHandler.obtainMessage(RECEIVE_DATA, count, -1, temp);
+            for (int i = 0; i < temp.length; i++) {
+                LogUtil.i("main",getClass().getSimpleName()+temp[i]);
+            }
+
             message.sendToTarget();
             mList.clear();
             count = 0;

@@ -37,6 +37,22 @@ public class CommUtils {
         }
         mBeanDao.insertOrReplaceInTx(list,false);
     }
+    public void delectBean(Bean b){
+        if (mBeanDao == null){
+            mBeanDao = getBeanDao();
+        }
+        mBeanDao.delete(b);
+    }
+
+    /**
+     * 删除所有数据
+     */
+    public void delectAllBean(){
+        if(mBeanDao == null){
+            mBeanDao = getBeanDao();
+        }
+        mBeanDao.deleteAll();
+    }
 
     /**查询所有数据
      * @return

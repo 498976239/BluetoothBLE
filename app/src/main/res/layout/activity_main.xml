@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,825 +14,948 @@
         android:background="@color/colorPrimaryDark"
         app:theme = "@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     </android.support.v7.widget.Toolbar>
+
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/mDrawer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:stretchColumns="1,2,3">
+
                 <TableRow>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="通道数" />
+
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
-                        android:text="数据一"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="数据一" />
+
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
-                        android:text="数据二"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="数据二" />
+
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
-                        android:text="数据三"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="数据三" />
                 </TableRow>
             </TableLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#bfbfbf"/>
+                android:background="#bfbfbf" />
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stretchColumns="1,2,3">
                     <!--第1通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道1" />
+
                         <TextView
                             android:id="@+id/channel1_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel1_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel1_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第2通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道2" />
+
                         <TextView
                             android:id="@+id/channel2_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel2_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel2_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第3通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道3" />
+
                         <TextView
                             android:id="@+id/channel3_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel3_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel3_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第4通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道4" />
+
                         <TextView
                             android:id="@+id/channel4_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel4_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel4_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第5通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道5" />
+
                         <TextView
                             android:id="@+id/channel5_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel5_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel5_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第6通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道6" />
+
                         <TextView
                             android:id="@+id/channel6_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel6_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel6_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第7通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道7" />
+
                         <TextView
                             android:id="@+id/channel7_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel7_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel7_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第8通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道8" />
+
                         <TextView
                             android:id="@+id/channel8_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel8_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel8_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第9通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道9" />
+
                         <TextView
                             android:id="@+id/channel9_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel9_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel9_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第10通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道10" />
+
                         <TextView
                             android:id="@+id/channel10_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel10_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel10_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第11通道-->
                     <TableRow>
                         android:id = "@+id"/row11
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道11" />
+
                         <TextView
                             android:id="@+id/channel11_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel11_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel11_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第12通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道12" />
+
                         <TextView
                             android:id="@+id/channel12_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel12_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel12_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第13通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道13" />
+
                         <TextView
                             android:id="@+id/channel13_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel13_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel13_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第14通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道14" />
+
                         <TextView
                             android:id="@+id/channel14_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel14_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel14_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第15通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道15" />
+
                         <TextView
                             android:id="@+id/channel15_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel15_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel15_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第16通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道16" />
+
                         <TextView
                             android:id="@+id/channel16_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel16_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel16_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第17通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道17" />
+
                         <TextView
                             android:id="@+id/channel17_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel17_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel17_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第18通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道18" />
+
                         <TextView
                             android:id="@+id/channel18_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel18_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel18_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第19通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道19" />
+
                         <TextView
                             android:id="@+id/channel19_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel19_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel19_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第20通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道20" />
+
                         <TextView
                             android:id="@+id/channel20_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel20_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel20_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第21通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道21" />
+
                         <TextView
                             android:id="@+id/channel21_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel21_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel21_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第22通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道22" />
+
                         <TextView
                             android:id="@+id/channel22_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel22_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel22_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第23通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道23" />
+
                         <TextView
                             android:id="@+id/channel23_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel23_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel23_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第24通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道24" />
+
                         <TextView
                             android:id="@+id/channel24_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel24_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel24_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第25通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道25" />
+
                         <TextView
                             android:id="@+id/channel25_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel25_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel25_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第26通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道26" />
+
                         <TextView
                             android:id="@+id/channel26_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel26_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel26_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第27通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道27" />
+
                         <TextView
                             android:id="@+id/channel27_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel27_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel27_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第28通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道28" />
+
                         <TextView
                             android:id="@+id/channel28_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel28_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel28_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第29通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道29" />
+
                         <TextView
                             android:id="@+id/channel29_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel29_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel29_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第30通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道30" />
+
                         <TextView
                             android:id="@+id/channel30_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel30_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel30_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第31通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道31" />
+
                         <TextView
                             android:id="@+id/channel31_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel31_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel31_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第32通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道32" />
+
                         <TextView
                             android:id="@+id/channel32_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel32_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel32_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第33通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道33" />
+
                         <TextView
                             android:id="@+id/channel33_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel33_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel33_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第34通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道34" />
+
                         <TextView
                             android:id="@+id/channel34_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel34_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel34_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第35通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道35" />
+
                         <TextView
                             android:id="@+id/channel35_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel35_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel35_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
                     <!--第36通道-->
                     <TableRow>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="通道36" />
+
                         <TextView
                             android:id="@+id/channel36_1"
-                            android:layout_marginTop="1dp"
                             style="@style/TextStyle"
-                            />
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel36_2"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
+
                         <TextView
                             android:id="@+id/channel36_3"
-                            android:layout_marginTop="1dp"
-                            style="@style/TextStyle" />
+                            style="@style/TextStyle"
+                            android:layout_marginTop="1dp" />
                     </TableRow>
 
                 </TableLayout>
             </ScrollView>
+
             <ProgressBar
                 android:id="@+id/waiting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_gravity="center_horizontal|center_vertical"
-                />
+                android:visibility="gone" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_unable"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:background="@drawable/button_unable"
                     android:text="请稍后..."
-                    android:textSize="20sp"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
                 <Button
                     android:id="@+id/mUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_background"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:background="@drawable/button_background"
                     android:text="请求数据"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
             </RelativeLayout>
 
 
         </LinearLayout>
+
         <android.support.design.widget.NavigationView
             android:id="@+id/navigationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:menu="@menu/navigation"
-            app:itemIconTint="@color/colorPrimary"
             android:layout_gravity="start"
-            app:headerLayout="@layout/head_layout">
+            app:headerLayout="@layout/head_layout"
+            app:itemIconTint="@color/colorPrimary"
+            app:menu="@menu/navigation">
+
         </android.support.design.widget.NavigationView>
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

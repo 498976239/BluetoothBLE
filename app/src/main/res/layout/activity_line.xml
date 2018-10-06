@@ -17,13 +17,15 @@
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"/>
+        android:layout_weight="9"/>
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,6 +51,42 @@
                 android:text="数据三"
                 android:layout_marginLeft="10dp" />
         </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
+        <TextView
+            android:id="@+id/max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最大值"/>
+        <TextView
+            android:id="@+id/aver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:text="平均值"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
+        <TextView
+            android:id="@+id/min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最小值"/>
+        <TextView
+            android:id="@+id/dee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:text="差值"/>
+
     </LinearLayout>
 
 

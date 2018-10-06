@@ -1,5 +1,7 @@
 package com.ss.www.bluetoothble.service;
-
+//BLE是采用Service在后台运行和activity进行通讯，当有数据改变的时候，就会发送广播给activity
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -16,6 +18,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.ss.www.bluetoothble.MainActivity;
+import com.ss.www.bluetoothble.R;
 import com.ss.www.bluetoothble.utils.LogUtil;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -31,10 +35,15 @@ public class BluetoothLeService extends Service {
     public static final int STATE_DISCONNECTED = 0;
     public static final int STATE_CONNECTING = 1;
     public static final int STATE_CONNECTED = 2;
+    public static final int STATE_DISCONNECTING = 3;
+    public static final int STATE_ERROR = 4;
     private int mConnectionState = STATE_DISCONNECTED;
     public final static String ACTION_GATT_CONNECTED = "com.ss.www.bluetoothble.ACTION_GATT_CONNECTED";
     public final static String ACTION_GATT_DISCONNECTED = "com.ss.www.bluetoothble.ACTION_GATT_DISCONNECTED";
+    public final static String ACTION_GATT_CONNECTING = "com.ss.www.bluetoothble.ACTION_GATT_CONNECTING";
+    public final static String ACTION_GATT_DISCONNECTING = "com.ss.www.bluetoothble.ACTION_GATT_DISCONNECTING";
     public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.ss.www.bluetoothble.ACTION_GATT_SERVICES_DISCOVERED";
+    public final static String ACTION_GATT_SERVICES_UNDISCOVERED = "com.ss.www.bluetoothble.ACTION_GATT_SERVICES_UNDISCOVERED";
     public final static String ACTION_DATA_AVAILABLE = "com.ss.www.bluetoothble.ACTION_DATA_AVAILABLE";
     public final static String EXTRA_DATA = "com.ss.www.bluetoothble.EXTRA_DATA";
     private BluetoothGattCallback mBluetoothGattCallback = new BluetoothGattCallback() {
@@ -52,13 +61,24 @@ public class BluetoothLeService extends Service {
                 mConnectionState = STATE_DISCONNECTED;
                 broadcastUpdate(intentAction);
             }
+            if(newState == BluetoothProfile.STATE_CONNECTING){
+                intentAction = ACTION_GATT_CONNECTING;
+                mConnectionState = STATE_CONNECTING;
+                broadcastUpdate(intentAction);
+            }
+            if(newState == BluetoothProfile.STATE_DISCONNECTING){
+                intentAction = ACTION_GATT_DISCONNECTING;
+                mConnectionState = STATE_DISCONNECTING;
+                broadcastUpdate(intentAction);
+            }
         }
-
+//当发现服务之后，发送广播，在activity里面配置好可以读取数据的权限
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             if(status == BluetoothGatt.GATT_SUCCESS){
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
             }else{
+                broadcastUpdate(ACTION_GATT_SERVICES_UNDISCOVERED);
                 LogUtil.i("main----","没有找到服务");
             }
         }
@@ -81,11 +101,12 @@ public class BluetoothLeService extends Service {
             broadcastUpdate(ACTION_DATA_AVAILABLE,characteristic);
         }
     };
-
+//封装的用来发送广播的方法
     private void broadcastUpdate(String intentAction) {
         Intent intent = new Intent(intentAction);
         sendBroadcast(intent);
     }
+    //封装的用来发送广播的重载方法
     private void broadcastUpdate(String intentAction,BluetoothGattCharacteristic characteristic){
         Intent intent = new Intent(intentAction);
         byte[] data = characteristic.getValue();
@@ -144,10 +165,11 @@ public class BluetoothLeService extends Service {
         if (mBluetoothAdapter == null || address == null) {
             return false;
         }
-        // Previously connected device.  Try to reconnect.
+        // Previously connected device.  Try to reconnect. (先前连接的设备。 尝试重新连接),不知道要不要使用，暂时关闭吧
+        //屏蔽之后，后台运行，再切回控制界面，连接断开
         if (mBluetoothDeviceAddress != null && address.equals(mBluetoothDeviceAddress) && mBluetoothGatt != null) {
             if (mBluetoothGatt.connect()) {
-                mConnectionState = STATE_CONNECTING;
+                mConnectionState = STATE_CONNECTED;
                 return true;
             } else {
                 return false;
@@ -159,6 +181,9 @@ public class BluetoothLeService extends Service {
         }
         // We want to directly connect to the device, so we are setting the autoConnect
         // parameter to false.
+        if (mBluetoothGatt != null) {
+            mBluetoothGatt.close();
+        }//连接前先关闭之前 的
         mBluetoothGatt = device.connectGatt(this, false, mBluetoothGattCallback);
         mBluetoothDeviceAddress = address;
         mConnectionState = STATE_CONNECTING;
@@ -173,6 +198,7 @@ public class BluetoothLeService extends Service {
             return;
         }
         mBluetoothGatt.disconnect();
+        mConnectionState = STATE_DISCONNECTED;
     }
 
     public void close() {
@@ -181,6 +207,7 @@ public class BluetoothLeService extends Service {
         }
         mBluetoothGatt.close();
         mBluetoothGatt = null;
+        mConnectionState = STATE_DISCONNECTED;
     }
     public int getState(){
         return mConnectionState;
@@ -216,6 +243,21 @@ public class BluetoothLeService extends Service {
     public BluetoothGattService getSupportedGattServices() {
         if (mBluetoothGatt == null) return null;
         return mBluetoothGatt.getService(UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb"));
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Notification.Builder builder = new Notification.Builder(this);
+        /*PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, MainActivity.class), 0);
+        builder.setContentIntent(contentIntent);*/
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setTicker("Foreground Service Start");
+        builder.setContentTitle("Foreground Service");
+        builder.setContentText("正在采集...");
+        Notification notification = builder.build();
+        startForeground(1, notification);
     }
 }
 

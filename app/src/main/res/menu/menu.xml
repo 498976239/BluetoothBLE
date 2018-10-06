@@ -8,5 +8,7 @@
         android:title="导出数据" />
     <item android:id="@+id/line_data"
         android:title="历史曲线"/>
+    <item android:id="@+id/deleteAll"
+        android:title="清空数据"/>
 
 </menu>

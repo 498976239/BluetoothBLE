@@ -16,9 +16,12 @@
     </group>
     <group android:id="@+id/operation"
         android:checkableBehavior="single">
-        <item android:id="@+id/request_data"
-            android:title="同步时间"
+        <item android:id="@+id/mode_choose"
+            android:title="模式选择"
             android:icon="@mipmap/ic_perm_group_sync_settings"/>
+        <item android:id="@+id/just_one"
+            android:title="调试模式"
+            android:icon="@mipmap/ic_menu_settings_holo_light"/>
         <item
             android:id="@+id/history"
             android:title="数据查询"

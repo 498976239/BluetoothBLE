@@ -6,13 +6,25 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ss.www.bluetoothble.DeviceListActivity">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/mDeviceListToolBar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimaryDark"
-        app:theme = "@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mDeviceListToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            app:theme = "@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        </android.support.v7.widget.Toolbar>
+        <ProgressBar
+            android:id="@+id/waiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/notice"
         android:layout_width="wrap_content"
@@ -20,18 +32,41 @@
         android:layout_marginLeft="5dp"
         android:text="请选择要连接的设备"
         android:visibility="gone"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
         <ListView
             android:id="@+id/deviceList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <ProgressBar
-            android:id="@+id/waiting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
-    </RelativeLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/Stop_btn"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:text="停止扫描设备"
+                android:textColor="@android:color/white"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentLeft="true"
+                android:textSize="25sp"/>
+            <Button
+                android:id="@+id/Scan_btn"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:text="扫描蓝牙设备"
+                android:textColor="@android:color/white"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:textSize="25sp"/>
+        </RelativeLayout>
+
+
+
+
 
 </LinearLayout>

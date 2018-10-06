@@ -31,14 +31,23 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof MyViewHolder){
-            MyViewHolder myViewHolder = (MyViewHolder) holder;
+            final MyViewHolder myViewHolder = (MyViewHolder) holder;
             myViewHolder.name.setText(mList.get(position).getName());
             myViewHolder.mData1.setText(mList.get(position).getData1()+"");
             myViewHolder.mData2.setText(mList.get(position).getData2()+"");
             myViewHolder.mData3.setText(mList.get(position).getData3()+"");
             myViewHolder.data_time.setText(mList.get(position).getTimeDetail());
+            if (longItemClickListener != null){
+                myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        longItemClickListener.onLongItemClick(myViewHolder.itemView,position);
+                        return true;
+                    }
+                });
+            }
         }
     }
 
@@ -60,5 +69,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter {
             mData3 = (TextView) itemView.findViewById(R.id.mData3);
             data_time = (TextView) itemView.findViewById(R.id.mData4);
         }
+    }
+    public interface OnRecyclerViewLongItemClickListener{
+        void onLongItemClick(View view, int position);
+    }
+    private OnRecyclerViewLongItemClickListener longItemClickListener;
+    public void setLongItemClickListener(OnRecyclerViewLongItemClickListener longItemClickListener){
+        this.longItemClickListener = longItemClickListener;
     }
 }
