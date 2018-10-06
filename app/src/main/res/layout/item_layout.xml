@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:stretchColumns="1,2,3">
+        <TableRow>
+            <TextView
+                android:id="@+id/channel_title"
+                android:layout_width="50dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="通道10"/>
+            <android.support.v7.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                card_view:cardBackgroundColor="@color/colorBlue"
+                card_view:cardCornerRadius="8dp">
+                <TextView
+                    android:id="@+id/value1"
+                    android:layout_width="90dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0000.00"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorWhite" />
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                card_view:cardBackgroundColor="@color/colorBlue"
+                card_view:cardCornerRadius="8dp">
+
+                <TextView
+                    android:id="@+id/value2"
+                    android:layout_width="90dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0000.00"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp" />
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                card_view:cardBackgroundColor="@color/colorBlue"
+                card_view:cardCornerRadius="8dp">
+                <TextView
+                    android:id="@+id/value3"
+                    android:layout_width="90dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0000.00"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp" />
+            </android.support.v7.widget.CardView>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>
